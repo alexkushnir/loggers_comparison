@@ -4,6 +4,7 @@
 #include "console_logger.h"
 #include "stopwatch.h"
 #include "async_logger.h"
+#include "user_defined_object_logger.h"
 
 #include "spdlog/spdlog.h"
 #include "spdlog/stopwatch.h"
@@ -22,6 +23,7 @@ int main(int argc, char** argv)
     ("b, backtrace", "backtrace logger")
     ("s, stopwatch", "stopwatch example")
     ("a, async", "async logger")
+    ("u, user-defined", "user-defined object logger")
     ("h, help", "print help")
     ;
     
@@ -47,6 +49,7 @@ int main(int argc, char** argv)
         std::cout << "-a, --async - run the async_logger() function\n";
         std::cout << "-s, --stopwatch - run the stopwatch() function\n";
         std::cout << "-a, --async - run the async_logger() function\n";
+        std::cout << "-u, --user-defined - run the user_defined_object_logger() function\n";
         std::cout << "-h, --help - print this screen and exit\n";
 
         return 0;
@@ -71,6 +74,10 @@ int main(int argc, char** argv)
     if (parsed_options.count("a"))
     {
         async_logger();
+    }
+    if (parsed_options.count("u"))
+    {
+        user_defined_object_logger();
     }
 
     return 0;
