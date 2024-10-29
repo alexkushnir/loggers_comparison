@@ -1,8 +1,9 @@
 #include "spdlog/spdlog.h"
+#include "spdlog/fmt/fmt.h"
 
-#include <format>
 #include <string>
 #include <vector>
+#include <iostream>
 
 struct custom_loggable
 {
@@ -16,7 +17,7 @@ struct custom_loggable
 };
 
 template<>
-struct std::formatter<custom_loggable> : std::formatter<std::string>
+struct fmt::formatter<custom_loggable> : fmt::formatter<std::string>
 {
     auto format(custom_loggable loggable, format_context &ctx) const -> decltype(ctx.out())
     {
@@ -26,10 +27,10 @@ struct std::formatter<custom_loggable> : std::formatter<std::string>
         {
             vector_str += std::format("{} ", entry);
         }
+        
+        vector_str += "]";
 
-        vector_str += " ]";
-
-        return std::format_to(ctx.out(), "custom_loggable: str = {}, values = {}", loggable.str, vector_str);
+        return fmt::format_to(ctx.out(), "custom_loggable(str: '{}', values: {})", loggable.str, vector_str);
     }
 };
 
