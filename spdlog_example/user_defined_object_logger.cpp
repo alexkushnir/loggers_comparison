@@ -25,7 +25,7 @@ struct fmt::formatter<custom_loggable> : fmt::formatter<std::string>
         vector_str  = "[ ";
         for (const auto& entry : loggable.values)
         {
-            vector_str += std::format("{} ", entry);
+            vector_str += fmt::format("{} ", entry);
         }
         
         vector_str += "]";
