@@ -22,8 +22,18 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Install prerequisites
-      run: sudo apt-get install -y ninja-build clang-18 clang++-18 libc++-18-dev libc++abi-18-dev clang-tools-18; sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-18 100; sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-18 100
+    - name: Set up LLVM repository and install Clang 18
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y wget gnupg lsb-release software-properties-common
+        # Add the LLVM repository
+        wget https://apt.llvm.org/llvm.sh
+        chmod +x llvm.sh
+        sudo ./llvm.sh 18  # Installs clang-18
+        sudo apt-get install -y clang-18
+
+    - name: Install Ninja
+      run: sudo apt-get install -y ninja-build
     
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
