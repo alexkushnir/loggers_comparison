@@ -57,7 +57,7 @@ jobs:
     - name: Generate README Badges
       run: |
         # Set GitHub Actions Workflow Badge
-        if [ "$workflow_status" = "success" ]; then
+        if [ "${{ env.workflow_status }}" = "success" ]; then
           workflow_badge="![Workflow](https://img.shields.io/badge/Workflow-passing-brightgreen?style=for-the-badge)"
         else
           workflow_badge="![Workflow](https://img.shields.io/badge/Workflow-failing-red?style=for-the-badge)"
