@@ -69,7 +69,7 @@ jobs:
         fi
 
         # Replace placeholder in README.md
-        sed -i '/^!\[Workflow\]/c\ '"$workflow_badge" README.md
+        sed -i '/^!\[Workflow\]/c\ '"$workflow_badge" README.md; status=$?; echo "Status $status"
     
     - name: Display README contents (debugging)
       run: cat README.md
