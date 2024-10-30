@@ -39,21 +39,16 @@ jobs:
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
       run: 
-        if cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -G Ninja; then
-          echo "cmake_status=success" >> $GITHUB_ENV
-        else
-          echo "cmake_status=failure" >> $GITHUB_ENV
-        fi
-
+        cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -G Ninja
+        status=$?
+        [ $status -eq 0 ] && echo "cmake_status=success" >> $GITHUB_ENV || echo "cmake_status=failure" >> $GITHUB_ENV
 
     - name: Build
       # Build your program with the given configuration
       run: 
-        if cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}; then
-          echo "cmake_status=success" >> $GITHUB_ENV
-        else
-          echo "cmake_status=failure" >> $GITHUB_ENV
-        fi
+        cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+        status=$?
+        [ $status -eq 0 ] && echo "cmake_status=success" >> $GITHUB_ENV || echo "cmake_status=failure" >> $GITHUB_ENV
       
     - name: Set Workflow Status
       id: set-status
