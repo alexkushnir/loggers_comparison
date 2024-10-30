@@ -1,7 +1,7 @@
 Loggers comparison
 ==================
 
- ![Workflow](https://img.shields.io/badge/Workflow-failing-red?style=for-the-badge)
+![Workflow](https://img.shields.io/badge/Workflow-passing-brightgreen?style=for-the-badge)
 
 Preface
 -------
