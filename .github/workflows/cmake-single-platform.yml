@@ -48,11 +48,11 @@ jobs:
     - name: Check GitHub Actions Workflow Status
       id: workflow-status
       run: |
-      if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-        echo "workflow_status=success" >> $GITHUB_ENV
-      else
-        echo "workflow_status=failure" >> $GITHUB_ENV
-      fi
+        if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+          echo "workflow_status=success" >> $GITHUB_ENV
+        else
+          echo "workflow_status=failure" >> $GITHUB_ENV
+        fi
     
     - name: Generate README Badges
       run: |
