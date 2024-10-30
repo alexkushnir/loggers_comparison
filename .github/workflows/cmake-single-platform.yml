@@ -71,9 +71,6 @@ jobs:
         # Replace placeholder in README.md
         sed -i  '/^[[:space:]]*!\[Workflow\]/c\'"$workflow_badge" README.md
     
-    - name: Display README contents (debugging)
-      run: cat README.md
-    
     - name: Commit changes
       run: |
         git config --local user.name "github-actions[bot]"
