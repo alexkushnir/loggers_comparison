@@ -25,11 +25,11 @@ jobs:
     - name: Set up LLVM repository and install Clang 18
       run: |
         sudo apt-get update
-        sudo apt-get install -y wget gnupg lsb-release software-properties-common
+        sudo apt-get install -y wget gnupg lsb-release software-properties-common 
         # Add the LLVM repository
-        wget https://apt.llvm.org/llvm.sh
-        chmod +x llvm.sh
-        sudo ./llvm.sh 18  # Installs clang-18
+        wget https://apt.llvm.org/llvm.sh --directory-prefix ../
+        chmod +x ../llvm.sh
+        sudo ../llvm.sh 18  # Installs clang-18
         sudo apt-get install -y clang-18
 
     - name: Install Ninja
