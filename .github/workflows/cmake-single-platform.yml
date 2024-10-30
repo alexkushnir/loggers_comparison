@@ -38,26 +38,36 @@ jobs:
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -G Ninja
+      run: 
+        if cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -G Ninja; then
+          echo "cmake_status=success" >> $GITHUB_ENV
+        else
+          echo "cmake_status=failure" >> $GITHUB_ENV
+        fi
+
 
     - name: Build
       # Build your program with the given configuration
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} 
-
+      run: 
+        if cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}; then
+          echo "cmake_status=success" >> $GITHUB_ENV
+        else
+          echo "cmake_status=failure" >> $GITHUB_ENV
+        fi
       
-    - name: Check GitHub Actions Workflow Status
-      id: workflow-status
+    - name: Set Workflow Status
+      id: set-status
       run: |
-        if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+        if [ "${{ env.cmake_status }}" = "success" ]; then
           echo "workflow_status=success" >> $GITHUB_ENV
         else
           echo "workflow_status=failure" >> $GITHUB_ENV
         fi
-    
+
     - name: Generate README Badges
       run: |
         # Set GitHub Actions Workflow Badge
-        if [ "${{ env.workflow_status }}" = "success" ]; then
+        if [ "$workflow_status" = "success" ]; then
           workflow_badge="![Workflow](https://img.shields.io/badge/Workflow-passing-brightgreen?style=for-the-badge)"
         else
           workflow_badge="![Workflow](https://img.shields.io/badge/Workflow-failing-red?style=for-the-badge)"
