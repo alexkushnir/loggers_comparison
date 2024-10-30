@@ -74,4 +74,4 @@ jobs:
         git commit -m "Update README with latest CMake build and workflow status"
         git push
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ github.token }}
