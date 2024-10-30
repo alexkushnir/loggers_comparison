@@ -43,4 +43,35 @@ jobs:
     - name: Build
       # Build your program with the given configuration
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} 
+
+      
+    - name: Check GitHub Actions Workflow Status
+      id: workflow-status
+      run: |
+      if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+        echo "workflow_status=success" >> $GITHUB_ENV
+      else
+        echo "workflow_status=failure" >> $GITHUB_ENV
+      fi
     
+    - name: Generate README Badges
+      run: |
+        # Set GitHub Actions Workflow Badge
+        if [ "$workflow_status" = "success" ]; then
+          workflow_badge="![Workflow](https://img.shields.io/badge/Workflow-passing-brightgreen?style=for-the-badge)"
+        else
+          workflow_badge="![Workflow](https://img.shields.io/badge/Workflow-failing-red?style=for-the-badge)"
+        fi
+
+        # Replace placeholder in README.md
+        sed -i '/<!-- WORKFLOW BADGE -->/c\ '"$workflow_badge" README.md
+
+    - name: Commit changes
+      run: |
+        git config --local user.name "github-actions[bot]"
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git add README.md
+        git commit -m "Update README with latest CMake build and workflow status"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

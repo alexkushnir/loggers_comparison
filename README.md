@@ -1,6 +1,8 @@
 Loggers comparison
 ==================
 
+<!-- WORKFLOW BADGE -->
+
 Preface
 -------
 
