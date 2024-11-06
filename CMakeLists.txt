@@ -12,3 +12,4 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin/${CMAKE_BUILD_TYPE}"
 project(loggers-comparison)
 
 add_subdirectory(spdlog_example)
+add_subdirectory(glog_example)
