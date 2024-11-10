@@ -1,5 +1,6 @@
 Loggers comparison
 ==================
+[![Examples build status](https://github.com/alexkushnir/loggers_comparison/actions/workflows/cmake-single-platform.yml/badge.svg)](https://github.com/alexkushnir/loggers_comparison/actions/workflows/cmake-single-platform.yml)
 
 Preface
 -------
