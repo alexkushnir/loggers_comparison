@@ -76,6 +76,7 @@ jobs:
         git config --local user.name "github-actions[bot]"
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         if ! git diff-index --quiet HEAD; then
+          git diff-index HEAD
           echo "Updating readme.md"
           git add README.md
           git commit -m "Update README with latest CMake build and workflow status"
