@@ -48,7 +48,6 @@ int main(int argc, char** argv)
         std::cout << "-c, --console - run the console_logger() function\n";
         std::cout << "-a, --async - run the async_logger() function\n";
         std::cout << "-s, --stopwatch - run the stopwatch() function\n";
-        std::cout << "-a, --async - run the async_logger() function\n";
         std::cout << "-u, --user-defined - run the user_defined_object_logger() function\n";
         std::cout << "-h, --help - print this screen and exit\n";
 
