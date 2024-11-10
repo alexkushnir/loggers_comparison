@@ -79,5 +79,6 @@ jobs:
           git add README.md
           git commit -m "Update README with latest CMake build and workflow status"
           git push
+        fi
       env:
         GITHUB_TOKEN: ${{ github.token }}
