@@ -112,8 +112,7 @@ struct CustomLogSink : google::LogSink
     {
         std::cout << google::GetLogSeverityName(severity) << ' ' << base_filename
             << ':' << line << ' ';
-        std::copy_n(message, message_len,
-            std::ostreambuf_iterator<char>{std::cout});
+        std::copy_n(message, message_len, std::ostreambuf_iterator<char>{ std::cout });
         std::cout << '\n';
     }
 };
@@ -123,7 +122,7 @@ void custom_sink_logging()
     CustomLogSink sink;
     google::AddLogSink(&sink);
 
-    LOG(INFO) << "logging to MySink";
+    LOG(INFO) << "logging to CustomLogSink";
 
     google::RemoveLogSink(&sink);  
 

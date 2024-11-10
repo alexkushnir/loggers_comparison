@@ -10,6 +10,7 @@ int main(int argc, char* argv[])
     ("m, multiple-log-levels", "several log messages with different levels") 
     ("f, custom-formatting", "custom prefix formatting")
     ("c, conditional-logging", "conditional logging")
+    ("s, custom-sink", "custom sink logging")
     ;
 
     auto parsed_options = options.parse(argc, argv);
@@ -24,5 +25,9 @@ int main(int argc, char* argv[])
     if (parsed_options.count("c"))
     {
         conditional_logging();
+    }
+    if (parsed_options.count("s"))
+    {
+        custom_sink_logging();
     }
 }
