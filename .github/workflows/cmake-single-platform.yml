@@ -63,9 +63,9 @@ jobs:
       run: |
         # Set GitHub Actions Workflow Badge
         if [ "$workflow_status" = "success" ]; then
-          workflow_badge="![Workflow](https://img.shields.io/badge/Workflow-passing-brightgreen?style=for-the-badge)"
+          workflow_badge='![Workflow](https://img.shields.io/badge/Workflow-passing-brightgreen?style=for-the-badge)'
         else
-          workflow_badge="![Workflow](https://img.shields.io/badge/Workflow-failing-red?style=for-the-badge)"
+          workflow_badge='![Workflow](https://img.shields.io/badge/Workflow-failing-red?style=for-the-badge)'
         fi
 
         # Replace placeholder in README.md
@@ -75,8 +75,9 @@ jobs:
       run: |
         git config --local user.name "github-actions[bot]"
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
-        git add README.md
-        git commit -m "Update README with latest CMake build and workflow status"
-        git push
+        if ! git diff-index --quiet HEAD --; then
+          git add README.md
+          git commit -m "Update README with latest CMake build and workflow status"
+          git push
       env:
         GITHUB_TOKEN: ${{ github.token }}
