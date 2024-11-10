@@ -76,13 +76,9 @@ jobs:
         git config --local user.name "github-actions[bot]"
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         if ! git diff --quiet README.md; then
-          git diff
-          echo "Updating readme.md"
           git add README.md
           git commit -m "Update README with latest CMake build and workflow status"
           git push
-        else
-          echo "Nothing to commit"
         fi
         
       env:
