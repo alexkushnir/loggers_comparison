@@ -31,8 +31,9 @@ jobs:
         chmod +x ../llvm.sh
         sudo ../llvm.sh 18  # Installs clang-18
         sudo apt-get install -y clang-18
-        sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-18 180 \
-                         --slave /usr/bin/clang++ clang++ /usr/bin/clang++-18
+        sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-18 180 
+        sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-18 180                          
+        
     - name: Install Ninja
       run: sudo apt-get install -y ninja-build
     
