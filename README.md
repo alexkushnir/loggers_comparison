@@ -57,3 +57,22 @@ Available flags:
 -u, --user-defined - run the user_defined_object_logger() function
 -h, --help - print this screen and exit
 ```
+
+glog_example
+------------
+
+The glog example artifact is called ```glog-log-example``` and located in ```<BUILD_DIR>/bin/<BUILD_TYPE>/```
+
+Usage:
+
+```
+cd loggers_comparison
+build/bin/Release/g-log-example 
+
+Available flags:
+-m, --multiple-log-levels - run the multiple_log_levels() function
+-f, --custom-formatting - run the custom_formatting() function
+-c, --conditional-logging - run the conditional_logging() function
+-a, --async - run the async_logger() function
+-s, --custom-sink - run the custom_sink_logging() function
+```
