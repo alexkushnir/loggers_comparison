@@ -26,6 +26,7 @@ jobs:
 
     - name: Verify Clang installation
       run: |
+        sudo apt-get install libc++-dev libc++abi-dev
         clang --version
         which clang
 
