@@ -12,7 +12,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
 
 include(FetchContent)
 
-FetchContent_Declare(spdlog GIT_REPOSITORY https://github.com/gabime/spdlog.git GIT_TAG v2.x)
+FetchContent_Declare(spdlog GIT_REPOSITORY https://github.com/gabime/spdlog.git GIT_TAG v1.x)
 set(SPDLOG_BUILD_EXAMPLE  OFF CACHE BOOL "Build example" FORCE)
 set(SPDLOG_BUILD_TESTS  OFF CACHE BOOL "Build tests" FORCE)
 set(SPDLOG_USE_STD_FORMAT OFF CACHE BOOL "Build tests" FORCE)
