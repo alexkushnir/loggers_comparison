@@ -26,7 +26,10 @@ jobs:
 
     - name: Verify Clang installation
       run: |
-        sudo apt-get install libc++-dev libc++abi-dev
+        wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+        sudo add-apt-repository "deb http://apt.llvm.org/$(lsb_release -cs)/ llvm-toolchain-$(lsb_release -cs)-18 main"
+        sudo apt update
+        sudo apt-get install libc++18-dev libc++abi-18-dev
         clang --version
         which clang
 
