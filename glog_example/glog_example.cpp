@@ -7,22 +7,22 @@ int main(int argc, char* argv[])
 
     cxxopts::Options options("spdlog-log-test", "spdlog usage example");
     options.add_options()
-    ("e, basic-example", "basic example") 
     ("m, multiple-log-levels", "several log messages with different levels") 
-    ("c, custom-formatting", "custom prefix formatting")
+    ("f, custom-formatting", "custom prefix formatting")
+    ("c, conditional-logging", "conditional logging")
     ;
-    auto parsed_options = options.parse(argc, argv);
 
-    if (parsed_options.count("e"))
-    {
-        basic_usage();
-    }
+    auto parsed_options = options.parse(argc, argv);
     if (parsed_options.count("m"))
     {
         multiple_log_levels();
     }
-    if (parsed_options.count("c"))
+    if (parsed_options.count("f"))
     {
         custom_formatting();
+    }
+    if (parsed_options.count("c"))
+    {
+        conditional_logging();
     }
 }

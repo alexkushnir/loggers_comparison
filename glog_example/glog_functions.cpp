@@ -3,33 +3,29 @@
 
 #include <ranges>
 #include <iomanip>
+#include <thread>
+#include <iostream>
 
 void init(const char* log_name)
 {
     google::InitGoogleLogging(log_name); 
 }
 
-void basic_usage()
-{
-    auto num_cookies = 15;
-    LOG(INFO) << "Found " << num_cookies << " cookies"; 
-}
-
 void multiple_log_levels()
 {
-    for (auto num_cookies  : std::views::iota(0, 10))
+    for (const auto& index  : std::views::iota(0, 10))
     {
-        if (num_cookies % 3 == 0)
+        if (index % 3 == 0)
         {
-            LOG(INFO) << "Found " << num_cookies << " cookies"; 
+            LOG(INFO) << "The index is now " << index << "ddd"; 
         }
-        else if (num_cookies % 3 == 1)
+        else if (index % 3 == 1)
         {
-            LOG(WARNING) << "Found " << num_cookies << " cookies";
+            LOG(WARNING) << "The index is now  " << index;
         }
-        else if (num_cookies % 3 == 2)
+        else if (index % 3 == 2)
         {
-            LOG(ERROR) << "Found " << num_cookies << " cookies";
+            LOG(ERROR) << "The index is now " << index;
         }
     }
 }
@@ -68,7 +64,69 @@ static void default_formatter(std::ostream& s, const google::LogMessage& m, void
 void custom_formatting()
 {
     google::InstallPrefixFormatter(&custom_formatter);
-    auto num_cookies = 15;
-    LOG(INFO) << "Found " << num_cookies << " cookies"; 
+    auto answer_to_everything = 42;
+    LOG(INFO) << "The answer to everything is " << answer_to_everything; 
 }
 
+void conditional_logging()
+{
+    google::InstallPrefixFormatter(&custom_formatter);
+
+    auto threshold = 5;
+
+    LOG(INFO) << "=== Demonstrating conditional logging ===";
+    for (const auto& temp : std::views::iota(1, 10))
+    {
+        LOG_IF(INFO, temp > threshold) << "LOG_IF: Alert, temperature is " << temp;
+    }
+
+    LOG(INFO) << "=== Demonstrating every Nth event logging ===";
+    for (const auto& event : std::views::iota(1, 100))
+    {
+        LOG_EVERY_N(INFO, 25) << "LOG_IF_EVERY_N: Got event no. " << event;
+    }
+
+    LOG(INFO) << "=== Demonstrating first N times logging ===";
+    for (const auto& event : std::views::iota(1, 10))
+    {
+        LOG_FIRST_N(INFO, 3) << "LOG_IF_FIRST_N: Got event no. " << event;
+    }
+
+    LOG(INFO) << "=== Demonstrating every 0.1s logging ===";
+    using namespace std::literals;
+  
+    for (const auto& count : std::views::iota(1, 10))
+    {
+        LOG_EVERY_T(INFO, 0.1) << "The thread is still alive, count: " << count;
+        std::this_thread::sleep_for(0.2s);
+    }
+}
+
+
+struct CustomLogSink : google::LogSink 
+{  
+    void send(google::LogSeverity severity, const char* filename,
+        const char* base_filename, int line,
+        const google::LogMessageTime& timestamp, const char* message,
+        std::size_t message_len) override 
+    {
+        std::cout << google::GetLogSeverityName(severity) << ' ' << base_filename
+            << ':' << line << ' ';
+        std::copy_n(message, message_len,
+            std::ostreambuf_iterator<char>{std::cout});
+        std::cout << '\n';
+    }
+};
+
+void custom_sink_logging()
+{
+    CustomLogSink sink;
+    google::AddLogSink(&sink);
+
+    LOG(INFO) << "logging to MySink";
+
+    google::RemoveLogSink(&sink);  
+
+    LOG_TO_SINK(&sink, INFO) << "direct logging";  
+    LOG_TO_SINK_BUT_NOT_TO_LOGFILE(&sink, INFO) << "direct logging but not to file";
+}
