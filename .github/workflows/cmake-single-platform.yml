@@ -75,8 +75,7 @@ jobs:
       run: |
         git config --local user.name "github-actions[bot]"
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
-        if ! git diff-index --quiet HEAD; then
-          git diff-index HEAD
+        if ! git diff --quiet README.md; then
           git diff
           echo "Updating readme.md"
           git add README.md
