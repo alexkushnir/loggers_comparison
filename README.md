@@ -1,6 +1,6 @@
 Loggers comparison
 ==================
-[![Examples build status](https://github.com/alexkushnir/loggers_comparison/actions/workflows/cmake-single-platform.yml/badge.svg)](https://github.com/alexkushnir/loggers_comparison/actions/workflows/cmake-single-platform.yml)
+[![Examples build status](https://github.com/alexkushnir/loggers_comparison/actions/workflows/cmake-single-platform.yml/badge.svg)](https://github.com/alexkushnir/loggers_comparison/actions/workflows/cmake-single-platform.yml?label=Logging%20libraries%20usage%20examples)
 
 Preface
 -------
