@@ -13,3 +13,4 @@ project(loggers-comparison)
 
 add_subdirectory(spdlog_example)
 add_subdirectory(glog_example)
+add_subdirectory(easylogging_exanple)
